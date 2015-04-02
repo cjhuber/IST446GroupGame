@@ -14,19 +14,20 @@ var MAX_WIDTH = 50,
     MIN_ROOMS = 5;
 
 // Terrain values
-var GROUND = '0',
-    WALL = '1';
+var GROUND = 0,
+    WALL = 1;
 
 var Map = function() {
     this.terrain = [];
     this.rooms = [];
     this.roomCount = 0;
+    this.playerSpawn = {};
 
     // Start with a terrain that is all walls, then start carving rooms and tunnels
     for (var x = 0; x < MAX_WIDTH; x++) {
         this.terrain[x] = [];
         for (var y = 0; y < MAX_HEIGHT; y++) {
-            this.terrain[x][y] = new Tile(WALL);
+            this.terrain[x][y] = WALL;
         }
     }
 
@@ -64,6 +65,7 @@ Map.prototype.initTerrain = function() {
             // Connect to previously created room (if there is a previous room)
             if (this.rooms.length == 0) {
                 // Make first room the room that the player starts in
+                this.playerSpawn = newRoom.center();
             } else {
 
                 var prevRoom = this.rooms[this.rooms.length - 1];
@@ -99,7 +101,7 @@ Map.prototype.createRoom = function(room) {
     console.log(room);
     for (var x = room.x1; x < room.x2; x++) {
         for (var y = room.y1; y < room.y2; y++) {
-            this.terrain[x][y].type = GROUND;
+            this.terrain[x][y] = GROUND;
         }
     }
 };
@@ -116,7 +118,7 @@ Map.prototype.createHTunnel = function(x1, x2, y) {
 
     console.log('creating horizontal tunnel [' + start + ', ' + y + '] -> [' + end + ', ' + y + ']');
     for (var x = start; x < end + 1; x++) {
-        this.terrain[y][x].type = GROUND;
+        this.terrain[y][x] = GROUND;
     }
 };
 
@@ -133,7 +135,7 @@ Map.prototype.createVTunnel = function(y1, y2, x) {
 
     console.log('creating vertical tunnel ' + start + ' -> ' + end + ' [' + x + ',' + y1 + ']');
     for (var y = start; y < end; y++) {
-        this.terrain[y][x].type = GROUND;
+        this.terrain[y][x] = GROUND;
     }
 };
 
@@ -155,27 +157,35 @@ Map.prototype.generateRoom = function() {
 
 Map.prototype.print = function() {
     console.log('Printing map');
+
     for (var x = 0; x < MAX_WIDTH; x++) {
         for (var y = 0; y < MAX_HEIGHT; y++) {
-            if (this.terrain[x][y].type === WALL) {
-                process.stdout.write((this.terrain[x][y].type + ' ').bgBlack);
+            if (this.terrain[x][y] === WALL) {
+                process.stdout.write((this.terrain[x][y] + ' ').bgBlack);
             } else {
-                process.stdout.write((this.terrain[x][y].type + ' ').bgWhite.black);
+                // Print player spawn point for testing..
+                if (this.playerSpawn.x === x && this.playerSpawn.y === y) {
+                    process.stdout.write((this.terrain[x][y] + ' ').bgGreen);
+                } else {
+                    process.stdout.write((this.terrain[x][y] + ' ').bgWhite.black);
+                }
             }
         }
         process.stdout.write('\n');
     }
 
-    // For testing, write terrain array as json to text file
-    var valArray = _.map(this.terrain, function(row) {
-        return _.map(row, function(tile) {
-            return tile.type;
-        });
-    });
+    console.log('Player spawn: (' + this.playerSpawn.x + ', ' + this.playerSpawn.y + ')');
 
-    fs.writeFile('output.txt', JSON.stringify(valArray), function() {
-        console.log('file saved');
-    });
+    // For testing, write terrain array as json to text file
+    // var valArray = _.map(this.terrain, function(row) {
+    //     return _.map(row, function(tile) {
+    //         return tile.type;
+    //     });
+    // });
+
+    // fs.writeFile('output.txt', JSON.stringify(valArray), function() {
+    //     console.log('file saved');
+    // });
 };
 
 module.exports = Map;
