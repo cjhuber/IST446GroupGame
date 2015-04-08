@@ -213,9 +213,7 @@ Map.prototype.print = function() {
     console.log('Printing map');
 
     console.log('Player spawn: (' + this.playerSpawn.x + ', ' + this.playerSpawn.y + ')');
-    for (var i = 0; i < this.enemies.length; i++) {
-        this.terrain[this.enemies[i].position.x][this.enemies[i].position.y] = 9;
-    }
+
     for (var x = 0; x < MAX_WIDTH; x++) {
         for (var y = 0; y < MAX_HEIGHT; y++) {
             if (this.terrain[x][y] === WALL) {
