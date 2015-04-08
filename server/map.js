@@ -11,15 +11,26 @@ var MAX_WIDTH = 50,
     MAX_ROOM_SIZE = 10,
     MIN_ROOM_SIZE = 6,
     MAX_ROOMS = 15,
-    MIN_ROOMS = 5;
+    MIN_ROOMS = 5,
+    MIN_ENEMIES_PER_ROOM = 5,
+    MAX_ENEMIES_PER_ROOM = 10;
 
 // Terrain values
 var GROUND = 0,
     WALL = 1;
 
+// Enemy types
+var ENEMY_TYPES = {
+    // Temp enemy names
+    ENEMY_1: 0,
+    ENEMY_2: 1,
+    ENEMY_3: 2
+};
+
 var Map = function() {
     this.terrain = [];
     this.rooms = [];
+    this.enemies = [];
     this.roomCount = 0;
     this.playerSpawn = {};
 
@@ -39,7 +50,7 @@ var Map = function() {
  * Generates the map's terrain array
  */
 Map.prototype.initTerrain = function() {
-    var roomCount = Math.floor(Math.random() * (MAX_ROOMS - MIN_ROOMS) + MIN_ROOMS),
+    var roomCount = getRandomInt(MIN_ROOMS, MAX_ROOMS),
         prevX = 0,
         prevY = 0;
 
@@ -61,6 +72,11 @@ Map.prototype.initTerrain = function() {
 
         if (isValidRoom) {
             this.createRoom(newRoom);
+
+            // Don't add enemies to the room that the player spawns in
+            if (r > 0) {
+                this.generateEnemies(newRoom);
+            }
 
             // Connect to previously created room (if there is a previous room)
             if (this.rooms.length == 0) {
@@ -155,9 +171,51 @@ Map.prototype.generateRoom = function() {
     return newRoom;
 };
 
+/**
+ * Generates enemies for a given room
+ * @param  {object} room - Room to add enemies to
+ */
+Map.prototype.generateEnemies = function(room) {
+    // Generate enemies for room
+    var generatedEnemies = 0,
+        enemiesToGenerate = getRandomInt(MIN_ENEMIES_PER_ROOM, MAX_ENEMIES_PER_ROOM);
+
+    while (generatedEnemies < enemiesToGenerate) {
+        var enemyType = getRandomInt(0, 3);
+        console.log('[GENERATING ENEMY] ' + enemyType);
+        var validPosition = false,
+            spawnPosition = {};
+
+        while (!validPosition) {
+            spawnPosition = {
+                x: getRandomArbitrary(room.x1, room.x2),
+                y: getRandomArbitrary(room.y1, room.y2)
+            };
+            validPosition = true;
+            for (var i = 0; i < this.enemies.length; i++) {
+                var enemy = this.enemies[i];
+                if (enemy.position.x === spawnPosition.x && enemy.position.y === spawnPosition.y) {
+                    validPosition = false;
+                    i = this.enemies.length;
+                }
+            };
+        }
+        var newEnemy = { type: enemyType, position: spawnPosition };
+        console.log('[GENERATED ENEMY]');
+        console.log(newEnemy);
+        this.enemies.push(newEnemy);
+
+        generatedEnemies++;
+    }
+}
+
 Map.prototype.print = function() {
     console.log('Printing map');
 
+    console.log('Player spawn: (' + this.playerSpawn.x + ', ' + this.playerSpawn.y + ')');
+    for (var i = 0; i < this.enemies.length; i++) {
+        this.terrain[this.enemies[i].position.x][this.enemies[i].position.y] = 9;
+    }
     for (var x = 0; x < MAX_WIDTH; x++) {
         for (var y = 0; y < MAX_HEIGHT; y++) {
             if (this.terrain[x][y] === WALL) {
@@ -174,8 +232,6 @@ Map.prototype.print = function() {
         process.stdout.write('\n');
     }
 
-    console.log('Player spawn: (' + this.playerSpawn.x + ', ' + this.playerSpawn.y + ')');
-
     // For testing, write terrain array as json to text file
     // var valArray = _.map(this.terrain, function(row) {
     //     return _.map(row, function(tile) {
@@ -188,4 +244,17 @@ Map.prototype.print = function() {
     // });
 };
 
+/**
+ * Generate random int between a range. (inclusive min and max)
+ * @param  {int} min - Minimum
+ * @param  {int} max - Maximum
+ * @return {int} Random integer between min and max.
+ */
+function getRandomInt(min, max) {
+    return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function getRandomArbitrary(min, max) {
+    return Math.floor(Math.random() * (max - min) + min);
+}
 module.exports = Map;

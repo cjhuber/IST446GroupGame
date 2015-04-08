@@ -49,11 +49,17 @@ app.post('/rooms', function(req, res) {
         player2 = req.body.player_2,
         hashKey = crypto.createHash('md5').update(player1 + '_' + player2).digest('hex');
     console.log('Creating room for ' + player1 + ',' + player2 + ' @ ' + hashKey);
-    rooms[hashKey] = {
-        player1: player1,
-        player2: player2,
-        map: new Map()
-    };
+
+    // If the room already exists, just return the room.
+    if (!rooms[hashKey]) {
+        rooms[hashKey] = {
+            player1: player1,
+            player2: player2,
+            map: new Map()
+        };
+    }
+    rooms[hashKey].map.print();
+
     res.json(rooms[hashKey]);
 });
 
