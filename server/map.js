@@ -31,8 +31,11 @@ var Map = function() {
     this.terrain = [];
     this.rooms = [];
     this.enemies = [];
-    this.roomCount = 0;
     this.playerSpawn = {};
+    this.properties = {
+        width: MAX_WIDTH,
+        height: MAX_HEIGHT
+    };
 
     // Start with a terrain that is all walls, then start carving rooms and tunnels
     for (var x = 0; x < MAX_WIDTH; x++) {
@@ -43,7 +46,7 @@ var Map = function() {
     }
 
     this.initTerrain();
-
+    this.generateExitDoor();
 };
 
 /**
@@ -209,6 +212,20 @@ Map.prototype.generateEnemies = function(room) {
     }
 }
 
+/**
+ * Adds the exit to the last room in the dungeon
+ *
+ * To make it simpler, the exit will be placed anywhere inside the last room.
+ * instead of just on walls.
+ */
+Map.prototype.generateExitDoor = function() {
+    var lastRoom = this.rooms[this.rooms.length - 1],
+        randX = getRandomArbitrary(lastRoom.x1 + 1, lastRoom.x2 - 1),
+        randY = getRandomArbitrary(lastRoom.y1 + 1, lastRoom.y2 - 1);
+
+    this.exitPosition = { x: randX, y: randY };
+}
+
 Map.prototype.print = function() {
     console.log('Printing map');
 
@@ -222,6 +239,8 @@ Map.prototype.print = function() {
                 // Print player spawn point for testing..
                 if (this.playerSpawn.x === x && this.playerSpawn.y === y) {
                     process.stdout.write((this.terrain[x][y] + ' ').bgGreen);
+                } else if (this.exitPosition.x === x && this.exitPosition.y === y) {
+                    process.stdout.write((this.terrain[x][y] + ' ').bgBlue);
                 } else {
                     process.stdout.write((this.terrain[x][y] + ' ').bgWhite.black);
                 }
@@ -252,7 +271,11 @@ function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+/*
+    Generates random int between a range (exclusive max)
+ */
 function getRandomArbitrary(min, max) {
     return Math.floor(Math.random() * (max - min) + min);
 }
+
 module.exports = Map;

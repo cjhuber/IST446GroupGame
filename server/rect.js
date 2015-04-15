@@ -4,6 +4,8 @@ var Rect = function(x, y, w, h) {
     this.y1 = y;
     this.x2 = x + w;
     this.y2 = y + h;
+    this.width = w;
+    this.height = h;
 };
 
 Rect.prototype.center = function() {
