@@ -3,7 +3,8 @@ var crypto = require('crypto'),
     app = express(),
     bodyParser = require('body-parser'),
     multer = require('multer'),
-    Map = require('./map');
+    Map = require('./map'),
+    Player = require('./player');
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -53,8 +54,8 @@ app.post('/rooms', function(req, res) {
     // If the room already exists, just return the room.
     if (!rooms[hashKey]) {
         rooms[hashKey] = {
-            player1: player1,
-            player2: player2,
+            player1: new Player(player1),
+            player2: new Player(player2),
             map: new Map()
         };
     }
