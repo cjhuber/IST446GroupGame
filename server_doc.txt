@@ -16,7 +16,7 @@ API
 JSON format
 
 Tile types for terrain:
-0 = Gound
+0 = Ground
 1 = Wall
 
 {
