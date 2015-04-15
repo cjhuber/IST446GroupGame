@@ -242,7 +242,17 @@ Map.prototype.print = function() {
                 } else if (this.exitPosition.x === x && this.exitPosition.y === y) {
                     process.stdout.write((this.terrain[x][y] + ' ').bgBlue);
                 } else {
-                    process.stdout.write((this.terrain[x][y] + ' ').bgWhite.black);
+                    var hasEnemy = false;
+                    for (var i = 0; i < this.enemies.length; i++) {
+                        if (this.enemies[i].position.x === x && this.enemies[i].position.y === y) {
+                            hasEnemy = true;
+                            i = this.enemies.length;
+                        }
+                    }
+                    if (!hasEnemy)
+                        process.stdout.write((this.terrain[x][y] + ' ').bgWhite.black);
+                    else
+                        process.stdout.write((this.terrain[x][y] + ' ').bgRed);
                 }
             }
         }
