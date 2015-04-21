@@ -69,5 +69,7 @@ public class Level : MonoBehaviour {
 		playerSpawn = new Vector3(room["map"]["playerSpawn"]["x"].AsFloat, room["map"]["playerSpawn"]["y"].AsFloat, -2);
 		Debug.Log (playerSpawn);
 		Instantiate(player, playerSpawn, Quaternion.identity);
+
+
 	}
 }
