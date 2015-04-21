@@ -1,5 +1,4 @@
-﻿
-using UnityEngine;
+﻿using UnityEngine;
 using System.Collections;
 using SimpleJSON;
 
@@ -8,6 +7,7 @@ public class Level : MonoBehaviour {
 	public GameObject wall;
 	public GameObject ground;
 	public GameObject player;
+	public GameObject enemy;
 	public GameObject door;
 
 	private string rawMapData;
@@ -67,6 +67,11 @@ public class Level : MonoBehaviour {
 					Instantiate (wall, new Vector3(y, mapWidth-x, 0), Quaternion.identity);
 				}
 			}
+		}
+
+		foreach (JSONNode enemyobj in room["map"]["enemies"].AsArray) {
+			Debug.Log ("Render emeny at: " + enemyobj["position"]["y"].AsFloat + "," + enemyobj["position"]["x"].AsFloat);
+			Instantiate (enemy, new Vector3(enemyobj["position"]["y"].AsFloat, mapWidth - enemyobj["position"]["x"].AsFloat, -2), Quaternion.identity);
 		}
 
 		playerSpawn = new Vector3(room["map"]["playerSpawn"]["y"].AsFloat, mapWidth - room["map"]["playerSpawn"]["x"].AsFloat, -2);
