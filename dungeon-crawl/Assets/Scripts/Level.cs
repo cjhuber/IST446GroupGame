@@ -8,8 +8,11 @@ public class Level : MonoBehaviour {
 	public GameObject wall;
 	public GameObject ground;
 	public GameObject player;
+	public GameObject door;
+
 	private String rawMapData;
-	public Vector3 playerSpawn;
+	private Vector3 playerSpawn;
+	private Vector3 exitPosition;
 
 	// Use this for initialization
 	void Start () {
@@ -70,6 +73,7 @@ public class Level : MonoBehaviour {
 		Debug.Log (playerSpawn);
 		Instantiate(player, playerSpawn, Quaternion.identity);
 
-
+		exitPosition = new Vector3(room["map"]["exitPosition"]["x"].AsFloat, room["map"]["exitPosition"]["y"].AsFloat, -2);
+		Instantiate(door, exitPosition, Quaternion.identity);
 	}
 }
