@@ -3,9 +3,11 @@ using System.Collections;
 
 public class CameraDebug : MonoBehaviour {
 
+	private Camera camera;
+
 	// Use this for initialization
 	void Start () {
-	
+		camera = this.GetComponent<Camera>();
 	}
 	
 	// Update is called once per frame
@@ -15,9 +17,10 @@ public class CameraDebug : MonoBehaviour {
 		this.transform.position += new Vector3(horizontal, vertical, 0);
 
 		if (Input.GetKey(KeyCode.Z)) {
-			this.GetComponent<Camera>().fieldOfView += 5;
+			if (camera.orthographicSize > 1)
+				camera.orthographicSize -= 1;
 		} else if (Input.GetKey(KeyCode.X)) {
-			this.GetComponent<Camera>().fieldOfView -= 5;
+			camera.orthographicSize += 1;
 		}
 	}
 }

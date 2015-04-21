@@ -63,7 +63,7 @@ public class Level : MonoBehaviour {
 				if (type == 0) {
 					Instantiate (ground, new Vector3(y, mapWidth-x, 0), Quaternion.identity);
 				} else if (type == 1) {
-					Instantiate (wall, new Vector3( y, mapWidth-x, 0), Quaternion.identity);
+					Instantiate (wall, new Vector3(y, mapWidth-x, 0), Quaternion.identity);
 				}
 			}
 		}
