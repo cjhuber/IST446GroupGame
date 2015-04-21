@@ -1,4 +1,4 @@
-﻿using System;
+﻿
 using UnityEngine;
 using System.Collections;
 using SimpleJSON;
@@ -10,7 +10,7 @@ public class Level : MonoBehaviour {
 	public GameObject player;
 	public GameObject door;
 
-	private String rawMapData;
+	private string rawMapData;
 	private Vector3 playerSpawn;
 	private Vector3 exitPosition;
 
@@ -27,10 +27,11 @@ public class Level : MonoBehaviour {
 	private IEnumerator GetMap() {
 		// Use POST request for testing
 		WWWForm form = new WWWForm();
-		form.AddField ("player_1", "123");
-		form.AddField ("player_2", "456");
-		
-		WWW www = new WWW("http://localhost:3000/rooms", form);
+		// Generate random players for testing
+		form.AddField ("player_1", Mathf.Round(Random.value * 1000).ToString());
+		form.AddField ("player_2", Mathf.Round(Random.value * 1000).ToString());
+
+		WWW www = new WWW("http://107.170.10.115:3000/rooms", form);
 		// Wait for request to finish
 		yield return www;
 		if (www.error == null) {
