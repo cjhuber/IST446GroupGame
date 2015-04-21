@@ -71,14 +71,14 @@ public class Level : MonoBehaviour {
 
 		foreach (JSONNode enemyobj in room["map"]["enemies"].AsArray) {
 			Debug.Log ("Render emeny at: " + enemyobj["position"]["y"].AsFloat + "," + enemyobj["position"]["x"].AsFloat);
-			Instantiate (enemy, new Vector3(enemyobj["position"]["y"].AsFloat, mapWidth - enemyobj["position"]["x"].AsFloat, -2), Quaternion.identity);
+			Instantiate (enemy, new Vector3(enemyobj["position"]["y"].AsFloat, mapWidth - enemyobj["position"]["x"].AsFloat, -1), Quaternion.identity);
 		}
 
 		playerSpawn = new Vector3(room["map"]["playerSpawn"]["y"].AsFloat, mapWidth - room["map"]["playerSpawn"]["x"].AsFloat, -2);
 		Debug.Log (playerSpawn);
 		Instantiate(player, playerSpawn, Quaternion.identity);
 
-		exitPosition = new Vector3(room["map"]["exitPosition"]["y"].AsFloat, mapWidth - room["map"]["exitPosition"]["x"].AsFloat, -2);
+		exitPosition = new Vector3(room["map"]["exitPosition"]["y"].AsFloat, mapWidth - room["map"]["exitPosition"]["x"].AsFloat, -1);
 		Instantiate(door, exitPosition, Quaternion.identity);
 	}
 }

@@ -14,7 +14,7 @@ public class CameraDebug : MonoBehaviour {
 	void Update () {
 		float horizontal = Input.GetAxis("Horizontal");
 		float vertical = Input.GetAxis("Vertical");
-		this.transform.position += new Vector3(horizontal, vertical, 0);
+		//this.transform.position += new Vector3(horizontal, vertical, 0);
 
 		if (Input.GetKey(KeyCode.Z)) {
 			if (camera.orthographicSize > 1)
