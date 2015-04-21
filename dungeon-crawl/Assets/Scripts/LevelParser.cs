@@ -58,15 +58,16 @@ public class LevelParser : MonoBehaviour
 		int mapHeight = room["map"]["properties"]["width"].AsInt;
 		Debug.Log ("Map Width:" + mapWidth);
 		Debug.Log ("Map Height:" + mapHeight);
+		Debug.Log ("Tile size: " + tileWidth + "x" + tileHeight);
 
 		for (int x = 0; x < mapWidth; x++) {
 			for (int y = 0; y < mapHeight; y++) {
 				int type = room["map"]["terrain"][x][y].AsInt;
 				if (type == 0) {
-					Instantiate (floor, (new Vector3(x * tileWidth, y * tileHeight, 0)), Quaternion.identity);
+					Instantiate (floor, (new Vector3(x, y, 0)), Quaternion.identity);
 				} else if (type == 1) {
 					
-					Instantiate (wall, (new Vector3(x * tileWidth, y * tileHeight, 0)), Quaternion.identity);
+					Instantiate (wall, (new Vector3(x, y, 0)), Quaternion.identity);
 				}
 			}
 		}
