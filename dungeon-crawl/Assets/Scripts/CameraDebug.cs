@@ -12,8 +12,6 @@ public class CameraDebug : MonoBehaviour {
 	void Update () {
 		float horizontal = Input.GetAxis("Horizontal");
 		float vertical = Input.GetAxis("Vertical");
-		//Vector3 move = new Vector3(horizontal, vertical, Camera.main.transform.position.z);
-		Debug.Log ("movement: " + horizontal + "," + vertical);
 		this.transform.position += new Vector3(horizontal, vertical, 0);
 
 		if (Input.GetKey(KeyCode.Z)) {

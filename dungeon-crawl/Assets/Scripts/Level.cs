@@ -61,19 +61,18 @@ public class Level : MonoBehaviour {
 			for (int y = 0; y < mapHeight; y++) {
 				int type = room["map"]["terrain"][x][y].AsInt;
 				if (type == 0) {
-					Instantiate (ground, (new Vector3(x, y, 0)), Quaternion.identity);
+					Instantiate (ground, new Vector3(y, mapWidth-x, 0), Quaternion.identity);
 				} else if (type == 1) {
-					
-					Instantiate (wall, (new Vector3(x, y, 0)), Quaternion.identity);
+					Instantiate (wall, new Vector3( y, mapWidth-x, 0), Quaternion.identity);
 				}
 			}
 		}
 
-		playerSpawn = new Vector3(room["map"]["playerSpawn"]["x"].AsFloat, room["map"]["playerSpawn"]["y"].AsFloat, -2);
+		playerSpawn = new Vector3(room["map"]["playerSpawn"]["y"].AsFloat, mapWidth - room["map"]["playerSpawn"]["x"].AsFloat, -2);
 		Debug.Log (playerSpawn);
 		Instantiate(player, playerSpawn, Quaternion.identity);
 
-		exitPosition = new Vector3(room["map"]["exitPosition"]["x"].AsFloat, room["map"]["exitPosition"]["y"].AsFloat, -2);
+		exitPosition = new Vector3(room["map"]["exitPosition"]["y"].AsFloat, mapWidth - room["map"]["exitPosition"]["x"].AsFloat, -2);
 		Instantiate(door, exitPosition, Quaternion.identity);
 	}
 }
