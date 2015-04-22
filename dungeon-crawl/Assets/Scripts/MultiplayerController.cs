@@ -55,9 +55,32 @@ public class MultiplayerController : MonoBehaviour {
 		Debug.Log ("Handle Turn Notification");
 	}
 
+	private string DecideWhoIsNext(TurnBasedMatch match) {
+		if(match.AvailableAutomatchSlots > 0) {
+			return null;
+		}
+		foreach(Participant p in match.Participants) {
+			if(!p.ParticipantId.Equals(match.SelfParticipantId)) {
+				return p.ParticipantId;
+			}
+		}
+
+		return null;
+	}
+
 	void OnMatchStarted(bool success, TurnBasedMatch match) {
 		if(success) {
+			byte[] myData = null;
 			Debug.Log ("Successfully Invited Someone");
+			string whoIsNext = DecideWhoIsNext(match);
+
+			PlayGamesPlatform.Instance.TurnBased.TakeTurn(match, myData, whoIsNext, (bool successPlay) => {
+				if(successPlay) {
+					Debug.Log ("Stuff turn done");
+				} else {
+					Debug.Log ("asdfasdfasdf");
+				}
+			});
 		} else {
 			Debug.Log ("Fucking dumbass");
 		}
