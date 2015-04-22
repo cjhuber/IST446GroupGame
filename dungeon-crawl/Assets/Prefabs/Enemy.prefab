@@ -9,6 +9,8 @@ GameObject:
   m_Component:
   - 4: {fileID: 426670}
   - 212: {fileID: 21281362}
+  - 114: {fileID: 11447684}
+  - 50: {fileID: 5064344}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Untagged
@@ -28,6 +30,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!50 &5064344
+Rigidbody2D:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110410}
+  m_Mass: 1
+  m_LinearDrag: 1
+  m_AngularDrag: 1
+  m_GravityScale: 0
+  m_FixedAngle: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_SleepingMode: 1
+  m_CollisionDetection: 0
+--- !u!114 &11447684
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 110410}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2e48cf80732b9405b8399d8e4a7e3673, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rigidBody: {fileID: 0}
+  player: {fileID: 152638, guid: 20707fad4ca7444e5b0640626977da87, type: 2}
+  maxHealth: 5
+  health: 1
 --- !u!212 &21281362
 SpriteRenderer:
   m_ObjectHideFlags: 1
