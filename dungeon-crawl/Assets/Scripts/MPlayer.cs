@@ -17,11 +17,24 @@ public class MPlayer : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		// movement for debugging
-		float horizontal = Input.GetAxis("Horizontal");
-		float vertical = Input.GetAxis("Vertical");
-		//this.transform.position += new Vector3(horizontal, vertical, 0);
-		this.rigidBody.velocity = new Vector3(horizontal, vertical, 0) * 5f;
+		Vector3 moveV = Vector3.zero;
+		if (Input.GetKey (KeyCode.W)) {
+			moveV += new Vector3(0, 1, 0);
+		}
+		if (Input.GetKey (KeyCode.A)) {
+			moveV += new Vector3(-1, 0, 0);
+		}
+		if (Input.GetKey (KeyCode.D)) {
+			moveV += new Vector3(1, 0, 0);
+		}
+		if (Input.GetKey (KeyCode.S)) {
+			moveV += new Vector3(0, -1, 0);
+		}
+		//this.transform.position += moveV;
+		this.rigidBody.velocity = moveV * 5.5f;
+		//this.transform.position += new Vector3(horizontal, vertical, 0).normalized * Time.deltaTime * 5;
 		Camera.main.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -10);
 		this.light.transform.position = this.transform.position;
-    }
+		
+	}
 }
