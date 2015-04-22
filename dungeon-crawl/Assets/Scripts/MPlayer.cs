@@ -11,6 +11,7 @@ public class MPlayer : MonoBehaviour {
 	public float SPEED = 6f;
 	
 	private CharacterController mainController;
+
 	// Use this for initialization
 	void Start () {
 		mainController = GetComponent<CharacterController>();
@@ -24,12 +25,13 @@ public class MPlayer : MonoBehaviour {
 	void Update () {
 		float horizontal = CrossPlatformInputManager.GetAxisRaw("Horizontal");
 		float vertical = CrossPlatformInputManager.GetAxisRaw("Vertical");
-		Vector2 move = new Vector2(horizontal, -vertical);
+		Vector2 move = new Vector2(horizontal, vertical);
 		if ((horizontal != 0) && (vertical != 0))
 		{
-			Vector3 rotate = new Vector3(0,0,Mathf.Atan2(-horizontal,-vertical)*Mathf.Rad2Deg);
+			Vector3 rotate = new Vector3(0,0,Mathf.Atan2(-horizontal,vertical)*Mathf.Rad2Deg);
 			this.GetComponent<Rigidbody2D>().transform.localRotation = Quaternion.Euler (rotate);
 		}
+
 		
 		this.GetComponent<Rigidbody2D>().velocity = move*SPEED;
 		//this.transform.position += new Vector3(horizontal, vertical, 0).normalized * Time.deltaTime * 5;

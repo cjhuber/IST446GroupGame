@@ -14,7 +14,7 @@ GameObject:
   - 61: {fileID: 6148434}
   m_Layer: 9
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: player_2
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -73,6 +73,7 @@ MonoBehaviour:
   spotLight: {fileID: 117460, guid: e1930b1f8d2594cf9bd681fe9043c0a4, type: 2}
   light: {fileID: 0}
   rigidBody: {fileID: 0}
+  SPEED: 6
 --- !u!212 &21274650
 SpriteRenderer:
   m_ObjectHideFlags: 1
