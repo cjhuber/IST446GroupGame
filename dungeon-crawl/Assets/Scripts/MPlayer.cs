@@ -6,6 +6,7 @@ public class MPlayer : MonoBehaviour {
 	public GameObject spotLight;
 	public GameObject light;
 	public Rigidbody2D rigidBody;
+	public int test = 100;
 	// Use this for initialization
 	void Start () {
 		this.rigidBody = this.GetComponent<Rigidbody2D>();

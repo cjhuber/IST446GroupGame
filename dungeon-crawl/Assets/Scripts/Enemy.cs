@@ -12,17 +12,18 @@ public class Enemy : MonoBehaviour {
 	public Rigidbody2D rigidBody;
 
 	private float MOVE_SPEED = 50f;
-	private float FIRE_DELAY = 0.25f;
-	private float BULLET_SPEED = 10.0f;
+	private float FIRE_DELAY = 0.35f;
+	private float BULLET_SPEED = 5.0f;
 	private float lastShot = 0;
 	private float lastDirectionChange = 0;
 	private float CHANGE_DIRECTION_DELAY = 3.0f;
 	private Vector2 moveDirection;
 	private EnemyState state;
 	private bool firing;
-	
+
+	//private static Transform _playerTransform;
 	public GameObject player;
-	//public GameObject bullet;
+	public GameObject bullet;
 	//public GameObject firePosition;
 	public int maxHealth;
 	public int health;
@@ -33,8 +34,6 @@ public class Enemy : MonoBehaviour {
 		moveDirection = Vector2.zero;
 		//state = (EnemyState) Random.Range (0, 1);
 		state = EnemyState.PATROL;
-//		player = GameObject.Find("Player");
-		Debug.Log (player);
 
 		health = maxHealth;
 		CHANGE_DIRECTION_DELAY = Random.Range (2, 4);
@@ -44,21 +43,25 @@ public class Enemy : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		/*if (lastShot >= FIRE_DELAY && firing) {
+		player = GameObject.FindWithTag("player_2");
+		//Debug.Log (player.transform.position);
+
+		if (lastShot >= FIRE_DELAY && firing) {
 			FireBullet();
 			lastShot = 0;
 		}
-		*/
+
 		Move();
 		this.GetComponent<Rigidbody2D>().velocity = moveDirection.normalized * MOVE_SPEED * Time.deltaTime * -1;
 		
-		//lastShot += Time.deltaTime;
+		lastShot += Time.deltaTime;
 	}
 
-	/*void FireBullet() {
+	void FireBullet() {
 		// Instantiate a new bullet and give it the same rotation as the enemy and starting position
 		// as the empty child firePosition game object
-		GameObject clone = Instantiate(bullet, firePosition.transform.position, Quaternion.identity) as GameObject;
+
+		GameObject clone = Instantiate(bullet, transform.position, Quaternion.identity) as GameObject;
 		clone.transform.rotation = transform.rotation;
 		
 		// Calculate velocity vector by using the current rotation of the player
@@ -68,10 +71,9 @@ public class Enemy : MonoBehaviour {
 			ldir.normalized.y * BULLET_SPEED,
 			ldir.normalized.z * BULLET_SPEED);
 	}
-	*/
+
 
 	void Move() {
-		Debug.Log ("MOVING");
 		switch (state) {
 		case EnemyState.PATROL:
 			Patrol();
@@ -86,9 +88,7 @@ public class Enemy : MonoBehaviour {
 	}
 	
 	void Patrol() {
-		Debug.Log ("PATROLLING");
 		float distanceFromPlayer = Vector3.Distance(player.transform.position, transform.position);
-		
 		// Change direction in intervals
 		if (lastDirectionChange >= CHANGE_DIRECTION_DELAY) {
 			float randDirection = Random.Range(0, 360);
