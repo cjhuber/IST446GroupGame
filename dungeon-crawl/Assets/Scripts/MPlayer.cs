@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Player : MonoBehaviour {
+public class MPlayer : MonoBehaviour {
 
 	public GameObject spotLight;
 	public GameObject light;
