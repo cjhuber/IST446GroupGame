@@ -73,6 +73,7 @@ MonoBehaviour:
   spotLight: {fileID: 117460, guid: e1930b1f8d2594cf9bd681fe9043c0a4, type: 2}
   light: {fileID: 0}
   rigidBody: {fileID: 0}
+  SPEED: 6
 --- !u!212 &21274650
 SpriteRenderer:
   m_ObjectHideFlags: 1
