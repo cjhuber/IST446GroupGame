@@ -8,13 +8,10 @@ public class MPlayer : MonoBehaviour {
 	public GameObject spotLight;
 	public GameObject light;
 	public Rigidbody2D rigidBody;
-<<<<<<< HEAD
-	public int test = 100;
-=======
 	public float SPEED = 6f;
 	
 	private CharacterController mainController;
->>>>>>> c9e144f1005df6d62bd2def748c61351635d306b
+
 	// Use this for initialization
 	void Start () {
 		mainController = GetComponent<CharacterController>();
@@ -34,6 +31,7 @@ public class MPlayer : MonoBehaviour {
 			Vector3 rotate = new Vector3(0,0,Mathf.Atan2(-horizontal,-vertical)*Mathf.Rad2Deg);
 			this.GetComponent<Rigidbody2D>().transform.localRotation = Quaternion.Euler (rotate);
 		}
+
 		
 		this.GetComponent<Rigidbody2D>().velocity = move*SPEED;
 		//this.transform.position += new Vector3(horizontal, vertical, 0).normalized * Time.deltaTime * 5;

@@ -14,6 +14,9 @@ public class Level : MonoBehaviour {
 	private Vector3 playerSpawn;
 	private Vector3 exitPosition;
 
+	private int mapWidth;
+	private int mapHeight;
+
 	// Use this for initialization
 	void Start () {
 		StartCoroutine(GetMap());
@@ -51,8 +54,8 @@ public class Level : MonoBehaviour {
 		var tileWidth = wall.GetComponent<SpriteRenderer>().bounds.size.x;
 		var tileHeight = wall.GetComponent<SpriteRenderer>().bounds.size.y;
 		var room = JSONNode.Parse (rawMapData);
-		int mapWidth = room["map"]["properties"]["width"].AsInt;
-		int mapHeight = room["map"]["properties"]["width"].AsInt;
+		mapWidth = room["map"]["properties"]["width"].AsInt;
+		mapHeight = room["map"]["properties"]["width"].AsInt;
 		Debug.Log ("Map Width:" + mapWidth);
 		Debug.Log ("Map Height:" + mapHeight);
 		Debug.Log ("Tile size: " + tileWidth + "x" + tileHeight);
@@ -80,5 +83,34 @@ public class Level : MonoBehaviour {
 
 		exitPosition = new Vector3(room["map"]["exitPosition"]["y"].AsFloat, mapWidth - room["map"]["exitPosition"]["x"].AsFloat, -1);
 		Instantiate(door, exitPosition, Quaternion.identity);
+
+		CreateMapBoundary();
+	}
+
+	// Create a wall around entire map to ensure the entire map is closed off
+	private void CreateMapBoundary() {
+		// Left border
+		float x = -1;
+		for (int y = 1; y <= mapHeight; y++) {
+			Instantiate (wall, new Vector3(x, y, 0), Quaternion.identity);
+		}
+
+		// Top border
+		int y1 = mapHeight + 1;
+		for (x = -1; x <= mapWidth; x++) {
+			Instantiate (wall, new Vector3(x, y1, 0), Quaternion.identity);
+		}
+
+		// Right border
+		int x1 = mapWidth;
+		for (int y = 1; y <= mapHeight; y++) {
+			Instantiate (wall, new Vector3(x1, y, 0), Quaternion.identity);
+		}
+
+		// Bottom border
+		y1 = 0;
+		for (x = -1; x <= mapWidth; x++) {
+			Instantiate (wall, new Vector3(x, y1, 0), Quaternion.identity);
+		}
 	}
 }
