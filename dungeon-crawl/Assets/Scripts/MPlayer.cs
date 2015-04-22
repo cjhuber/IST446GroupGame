@@ -1,14 +1,23 @@
 ﻿using UnityEngine;
 using System.Collections;
+using UnitySampleAssets.CrossPlatformInput;
+using UnitySampleAssets.Utility;
 
 public class MPlayer : MonoBehaviour {
 
 	public GameObject spotLight;
 	public GameObject light;
 	public Rigidbody2D rigidBody;
+<<<<<<< HEAD
 	public int test = 100;
+=======
+	public float SPEED = 6f;
+	
+	private CharacterController mainController;
+>>>>>>> c9e144f1005df6d62bd2def748c61351635d306b
 	// Use this for initialization
 	void Start () {
+		mainController = GetComponent<CharacterController>();
 		this.rigidBody = this.GetComponent<Rigidbody2D>();
 		// When player is created, automatically move camera to player's position
 		Camera.main.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, Camera.main.transform.position.z);
@@ -17,22 +26,16 @@ public class MPlayer : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-		// movement for debugging
-		Vector3 moveV = Vector3.zero;
-		if (Input.GetKey (KeyCode.W)) {
-			moveV += new Vector3(0, 1, 0);
+		float horizontal = CrossPlatformInputManager.GetAxisRaw("Horizontal");
+		float vertical = CrossPlatformInputManager.GetAxisRaw("Vertical");
+		Vector2 move = new Vector2(horizontal, -vertical);
+		if ((horizontal != 0) && (vertical != 0))
+		{
+			Vector3 rotate = new Vector3(0,0,Mathf.Atan2(-horizontal,-vertical)*Mathf.Rad2Deg);
+			this.GetComponent<Rigidbody2D>().transform.localRotation = Quaternion.Euler (rotate);
 		}
-		if (Input.GetKey (KeyCode.A)) {
-			moveV += new Vector3(-1, 0, 0);
-		}
-		if (Input.GetKey (KeyCode.D)) {
-			moveV += new Vector3(1, 0, 0);
-		}
-		if (Input.GetKey (KeyCode.S)) {
-			moveV += new Vector3(0, -1, 0);
-		}
-		//this.transform.position += moveV;
-		this.rigidBody.velocity = moveV * 5.5f;
+		
+		this.GetComponent<Rigidbody2D>().velocity = move*SPEED;
 		//this.transform.position += new Vector3(horizontal, vertical, 0).normalized * Time.deltaTime * 5;
 		Camera.main.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -10);
 		this.light.transform.position = this.transform.position;
