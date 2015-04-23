@@ -7,8 +7,12 @@ public class MPlayer : MonoBehaviour {
 
 	public GameObject spotLight;
 	public GameObject light;
+	public GameObject bullet;
+	public GameObject firePosition;
 	public Rigidbody2D rigidBody;
 	public float SPEED = 6f;
+	private float BULLET_SPEED = 20.0f;
+	private float lastShot = 0.0f;
 	
 	private CharacterController mainController;
 
@@ -38,5 +42,25 @@ public class MPlayer : MonoBehaviour {
 		Camera.main.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -10);
 		this.light.transform.position = this.transform.position;
 		
+		
+		if (CrossPlatformInputManager.GetButtonDown("Jump")){
+			
+			// Instantiate a new bullet and give it the same rotation as the player and starting position
+			// as the empty child firePosition game object
+			GameObject clone = Instantiate(bullet, firePosition.transform.position, Quaternion.identity) as GameObject;
+			clone.transform.rotation = transform.rotation;
+			
+			// Calculate velocity vector by using the current rotation of the player
+			Quaternion rotDir = Quaternion.AngleAxis(clone.transform.rotation.eulerAngles.z, Vector3.right);
+			Vector3 ldir = rotDir * Vector3.forward;
+			
+			clone.GetComponent<Rigidbody2D>().velocity = new Vector2(
+				ldir.normalized.y * BULLET_SPEED,
+				ldir.normalized.z * BULLET_SPEED);
+			
+			lastShot = 0;
+		}
+		
+		lastShot+=Time.deltaTime;
 	}
 }
