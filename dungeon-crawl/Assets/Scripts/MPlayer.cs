@@ -9,6 +9,7 @@ public class MPlayer : MonoBehaviour {
 	public GameObject light;
 	public GameObject bullet;
 	public GameObject firePosition;
+
 	public Rigidbody2D rigidBody;
 	public float SPEED = 6f;
 	public float TOTAL_HEALTH = 100f;
@@ -48,9 +49,8 @@ public class MPlayer : MonoBehaviour {
 		Camera.main.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, -10);
 		this.light.transform.position = this.transform.position;
 		
-		
 		if (CrossPlatformInputManager.GetButtonDown("Jump")){
-			
+
 			// Instantiate a new bullet and give it the same rotation as the player and starting position
 			// as the empty child firePosition game object
 			GameObject clone = Instantiate(bullet, firePosition.transform.position, Quaternion.identity) as GameObject;

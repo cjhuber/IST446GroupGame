@@ -145,7 +145,7 @@
             <key>datafile</key>
             <struct type="DataFile">
                 <key>name</key>
-                <filename></filename>
+                <filename>main_spritesheet.tpsheet</filename>
             </struct>
         </map>
         <key>multiPack</key>

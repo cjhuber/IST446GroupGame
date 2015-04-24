@@ -26,10 +26,11 @@ public class Joystick : MonoBehaviour , IPointerUpHandler , IPointerDownHandler 
       
     void Start () {
 		
-		float scaleX = (float)(Screen.width) / origW;
+		/*float scaleX = (float)(Screen.width) / origW;
 		float scaleY = (float)(Screen.height) / origH;
 		transform.localScale = new Vector3(scaleX*transform.localScale.x, scaleY*transform.localScale.y, 1);
-        startPos = new Vector3((float)Screen.width/5f,(float)Screen.height/4f,transform.position.z); //transform.position + new Vector3(scaleX, scaleY, 0);
+        startPos = new Vector3((float)Screen.width/5f,(float)Screen.height/4f,transform.position.z); //transform.position + new Vector3(scaleX, scaleY, 0);*/
+		startPos = transform.position;
         CreateVirtualAxes ();
     }
 
