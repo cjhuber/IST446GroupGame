@@ -5,8 +5,7 @@
 # http://www.codeandweb.com/texturepacker/unity
 #
 # Sprite sheet: test_player.png (64 x 128)
-# $TexturePacker:SmartUpdate:fe2e6df06ac89a3a9ba1fd8507df4df2:f443397f68553bd46623fa4e3dc0912f:4e5aa030f6b1e064972a98c4566882a3$
+# $TexturePacker:SmartUpdate:34ce55c791c6a73c3f56dccb10d856e2:525a25ec01d405bf99615d95f1171ee5:4e5aa030f6b1e064972a98c4566882a3$
 #
 
 ghost_normal;3;52;51;73;0.5;0.5
-mage;3;30;15;18;0.5;0.5

@@ -31,7 +31,7 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 4096
   textureSettings:
-    filterMode: 0
+    filterMode: 2
     aniso: 16
     mipBias: -1
     wrapMode: 1
@@ -58,16 +58,6 @@ TextureImporter:
         y: 52
         width: 51
         height: 73
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: mage
-      rect:
-        serializedVersion: 2
-        x: 3
-        y: 30
-        width: 15
-        height: 18
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}

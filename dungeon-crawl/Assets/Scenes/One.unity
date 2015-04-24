@@ -254,8 +254,8 @@ MonoBehaviour:
   player: {fileID: 152638, guid: 20707fad4ca7444e5b0640626977da87, type: 2}
   enemy: {fileID: 110410, guid: 9934cc533c8dd4421ad4c55d1bdebc34, type: 2}
   door: {fileID: 183446, guid: 6e3e5acafd22a48dcaa97d62bdd0938b, type: 2}
-  doorLight: {fileID: 124910, guid: 299d7b851de4d4a419b28923893a32d3, type: 2}
   treasure: {fileID: 145534, guid: 7d42e8274b40d44c09d52dd166ad5e46, type: 2}
+  areaLight: {fileID: 117460, guid: e1930b1f8d2594cf9bd681fe9043c0a4, type: 2}
 --- !u!4 &859122445
 Transform:
   m_ObjectHideFlags: 0

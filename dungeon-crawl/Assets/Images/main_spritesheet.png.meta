@@ -8,6 +8,7 @@ TextureImporter:
     21300002: ground
     21300004: wall
     21300006: player
+    21300008: treasure
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -53,7 +54,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: gold
+    - name: ground
       rect:
         serializedVersion: 2
         x: 3
@@ -63,31 +64,21 @@ TextureImporter:
       alignment: 0
       pivot: {x: .5, y: .5}
       border: {x: 0, y: 0, z: 0, w: 0}
-    - name: ground
+    - name: treasure
       rect:
         serializedVersion: 2
         x: 3
-        y: 25
-        width: 16
-        height: 16
-      alignment: 0
-      pivot: {x: .5, y: .5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-    - name: player
-      rect:
-        serializedVersion: 2
-        x: 23
-        y: 49
-        width: 9
-        height: 12
+        y: 6
+        width: 13
+        height: 15
       alignment: 9
-      pivot: {x: .444444448, y: .5}
+      pivot: {x: .538461566, y: .466666669}
       border: {x: 0, y: 0, z: 0, w: 0}
     - name: wall
       rect:
         serializedVersion: 2
         x: 3
-        y: 5
+        y: 25
         width: 16
         height: 16
       alignment: 0

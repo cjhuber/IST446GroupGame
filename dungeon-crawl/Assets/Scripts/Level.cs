@@ -9,8 +9,8 @@ public class Level : MonoBehaviour {
 	public GameObject player;
 	public GameObject enemy;
 	public GameObject door;
-	public GameObject doorLight;
 	public GameObject treasure;
+	public GameObject areaLight;
 
 	private string rawMapData;
 	private Vector3 playerSpawn;
@@ -86,10 +86,19 @@ public class Level : MonoBehaviour {
 
 		exitPosition = new Vector3(room["map"]["exitPosition"]["y"].AsFloat, mapWidth - room["map"]["exitPosition"]["x"].AsFloat, -1);
 		Instantiate(door, exitPosition, Quaternion.identity);
-		Instantiate (doorLight, exitPosition, Quaternion.identity);
+		GameObject exitLightObj = Instantiate (areaLight, new Vector3(exitPosition.x, exitPosition.y, -2), Quaternion.identity) as GameObject;
+		Light exitLight = exitLightObj.GetComponent<Light>();
+		exitLight.color = new Color(0, 1, 1, 1);
+		exitLight.intensity = 1f;
+		exitLight.range = 10;
 
 		treasurePosition = new Vector3(room["map"]["treasurePosition"]["y"].AsFloat, mapWidth - room["map"]["treasurePosition"]["x"].AsFloat, -1);
 		Instantiate (treasure, treasurePosition, Quaternion.identity);
+		GameObject treasureLightObj = Instantiate (areaLight, new Vector3(treasurePosition.x, treasurePosition.y, -2), Quaternion.identity) as GameObject;
+		Light light = treasureLightObj.GetComponent<Light>();
+		light.color = Color.yellow;
+		light.intensity = 1f;
+		light.range = 10;
 
 		CreateMapBoundary();
 	}
