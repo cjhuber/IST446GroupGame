@@ -12,7 +12,9 @@ public class MPlayer : MonoBehaviour {
 	public Rigidbody2D rigidBody;
 	public float SPEED = 6f;
 	public float TOTAL_HEALTH = 100f;
+	public float INITIAL_SCORE = 0f;
 	public float health;
+	public float score;
 	private float BULLET_SPEED = 20.0f;
 	private float lastShot = 0.0f;
 	
@@ -26,6 +28,7 @@ public class MPlayer : MonoBehaviour {
 		Camera.main.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, Camera.main.transform.position.z);
 		light = Instantiate(spotLight, new Vector3(this.transform.position.x, this.transform.position.y, -2), Quaternion.identity) as GameObject;
 		health = TOTAL_HEALTH;
+		score = INITIAL_SCORE;
 	}
 	
 	// Update is called once per frame

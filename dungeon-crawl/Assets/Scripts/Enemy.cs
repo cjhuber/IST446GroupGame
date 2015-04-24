@@ -12,7 +12,7 @@ public class Enemy : MonoBehaviour {
 	public Rigidbody2D rigidBody;
 
 	private float MOVE_SPEED = 50f;
-	private float FIRE_DELAY = 0.35f;
+	private float FIRE_DELAY = 0.60f;
 	private float BULLET_SPEED = 5.0f;
 	private float lastShot = 0;
 	private float lastDirectionChange = 0;

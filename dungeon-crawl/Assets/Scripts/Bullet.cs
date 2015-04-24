@@ -4,11 +4,12 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour {
 
-	public GameObject player;
+	public MPlayer player;
+	private float KILLED_ENEMY = 100;
 
 	// Use this for initialization
 	void Start() {
-		player = GameObject.FindWithTag("player_2");
+		player = GameObject.FindWithTag("player_2").GetComponent<MPlayer>();
 	}
 	
 	// Update is called once per frame
@@ -27,30 +28,15 @@ public class Bullet : MonoBehaviour {
 			Destroy(this.gameObject);
 
 			if(other.name =="Player(Clone)"){
-				other.GetComponent<MPlayer>().TakeDamage();
+				player.TakeDamage();
 			}
 
 		}
 		if (other.name == "Enemy(Clone)" && this.tag == "player_bullet") {
+			player.score += KILLED_ENEMY;
+			Debug.Log (player.score);
 			Destroy (other.gameObject);
+			Destroy (this.gameObject);
 		}
-		/*
-
-		if (other.name == "Player") {
-			var player = other.GetComponent<Player>();
-			player.TakeDamage();
-		}
-		
-		if (this.tag == "player_bullet" && other.tag == "enemy") {
-			Scene game = FindObjectOfType<Scene>();
-			Vector3 enemyDeathPos = other.transform.position;
-			if (Random.Range (0,100) < 10) {
-				game.SpawnHealth(enemyDeathPos);
-			}
-			game.KillEnemy(enemyDeathPos);
-			Destroy(other.gameObject);
-			
-		}
-		*/
 	}
 }
