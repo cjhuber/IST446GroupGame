@@ -11,6 +11,8 @@ public class MPlayer : MonoBehaviour {
 	public GameObject firePosition;
 	public Rigidbody2D rigidBody;
 	public float SPEED = 6f;
+	public float TOTAL_HEALTH = 100f;
+	public float health;
 	private float BULLET_SPEED = 20.0f;
 	private float lastShot = 0.0f;
 	
@@ -23,6 +25,7 @@ public class MPlayer : MonoBehaviour {
 		// When player is created, automatically move camera to player's position
 		Camera.main.transform.position = new Vector3(this.transform.position.x, this.transform.position.y, Camera.main.transform.position.z);
 		light = Instantiate(spotLight, new Vector3(this.transform.position.x, this.transform.position.y, -2), Quaternion.identity) as GameObject;
+		health = TOTAL_HEALTH;
 	}
 	
 	// Update is called once per frame
@@ -62,5 +65,12 @@ public class MPlayer : MonoBehaviour {
 		}
 		
 		lastShot+=Time.deltaTime;
+	}
+
+	public void TakeDamage(){
+		health--;
+		Debug.Log (health);
+		if(health == 0)
+			Destroy(this.gameObject);
 	}
 }

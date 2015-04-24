@@ -1,10 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+
 public class Bullet : MonoBehaviour {
-	
+
+	public GameObject player;
+
 	// Use this for initialization
 	void Start() {
+		player = GameObject.FindWithTag("player_2");
 	}
 	
 	// Update is called once per frame
@@ -21,6 +25,11 @@ public class Bullet : MonoBehaviour {
 				//Debug.Log (this.tag + " colliding with " + other.tag);
 			}
 			Destroy(this.gameObject);
+
+			if(other.name =="Player(Clone)"){
+				other.GetComponent<MPlayer>().TakeDamage();
+			}
+
 		}
 		/*
 
