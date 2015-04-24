@@ -44,7 +44,7 @@ public class Enemy : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 		player = GameObject.FindWithTag("player_2");
-		//Debug.Log (player.transform.position);
+//		Debug.Log (player.transform.position);
 
 		if (lastShot >= FIRE_DELAY && firing) {
 			FireBullet();
@@ -104,7 +104,7 @@ public class Enemy : MonoBehaviour {
 		}
 		
 		// Once player is within sight of enemy, start chasing player
-		if (distanceFromPlayer < 10) {
+		if (distanceFromPlayer < 4) {
 			this.state = EnemyState.CHASE;
 		}
 		
@@ -129,7 +129,7 @@ public class Enemy : MonoBehaviour {
 		}
 		
 		// If player gets more than 10 distance away from the enemy, switch to patrol state.
-		if (distanceFromPlayer > 10) {
+		if (distanceFromPlayer > 7) {
 			this.state = EnemyState.PATROL;
 		}
 		

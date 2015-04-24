@@ -10,10 +10,12 @@ public class Level : MonoBehaviour {
 	public GameObject enemy;
 	public GameObject door;
 	public GameObject doorLight;
+	public GameObject treasure;
 
 	private string rawMapData;
 	private Vector3 playerSpawn;
 	private Vector3 exitPosition;
+	private Vector3 treasurePosition;
 
 	private int mapWidth;
 	private int mapHeight;
@@ -85,6 +87,9 @@ public class Level : MonoBehaviour {
 		exitPosition = new Vector3(room["map"]["exitPosition"]["y"].AsFloat, mapWidth - room["map"]["exitPosition"]["x"].AsFloat, -1);
 		Instantiate(door, exitPosition, Quaternion.identity);
 		Instantiate (doorLight, exitPosition, Quaternion.identity);
+
+		treasurePosition = new Vector3(room["map"]["treasurePosition"]["y"].AsFloat, mapWidth - room["map"]["treasurePosition"]["x"].AsFloat, -1);
+		Instantiate (treasure, treasurePosition, Quaternion.identity);
 
 		CreateMapBoundary();
 	}
