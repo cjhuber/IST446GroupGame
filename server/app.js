@@ -53,10 +53,15 @@ app.post('/rooms', function(req, res) {
 
     // If the room already exists, just return the room.
     if (!rooms[hashKey]) {
+        var playersH = {};
+        playersH[player1] = new Player(player1);
+        playersH[player2] = new Player(player2);
+
         rooms[hashKey] = {
             id: hashKey,
             player1: new Player(player1),
             player2: new Player(player2),
+            players: playersH,
             map: new Map()
         };
     }
@@ -64,6 +69,20 @@ app.post('/rooms', function(req, res) {
     rooms[hashKey].map.print();
 
     res.json(rooms[hashKey]);
+});
+
+app.post('/rooms/:key', function(req, res) {
+    var key = req.params.key;
+    res.json(key);
+});
+
+app.get('/rooms/:key', function(req, res) {
+    var key = req.params.key;
+    if (rooms[key]) {
+        res.json(rooms[key]);
+    } else {
+        res.status(500).send({ error: 'Room does not exist.' });
+    }
 });
 
 var server = app.listen(3000, function() {

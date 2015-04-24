@@ -32,6 +32,7 @@ var Map = function() {
     this.rooms = [];
     this.enemies = [];
     this.playerSpawn = {};
+    this.treasurePosition = {};
     this.properties = {
         width: MAX_WIDTH,
         height: MAX_HEIGHT
@@ -108,6 +109,17 @@ Map.prototype.initTerrain = function() {
 
         }
     }
+
+    var randRoom = getRandomInt(0, this.rooms.length - 1);
+    var treasureRoom = this.rooms[randRoom];
+
+    // Add treasure to any room that is not the start room
+    this.treasurePosition = {
+        x: getRandomArbitrary(treasureRoom.x1 + 1, treasureRoom.x2 - 1),
+        y: getRandomArbitrary(treasureRoom.y1 + 1, treasureRoom.y2 - 1)
+    };
+
+    console.log('Generated trasure at: ' + this.treasurePosition.x + ',' + this.treasurePosition.y);
 
 };
 
@@ -241,6 +253,8 @@ Map.prototype.print = function() {
                     process.stdout.write((this.terrain[x][y] + ' ').bgGreen);
                 } else if (this.exitPosition.x === x && this.exitPosition.y === y) {
                     process.stdout.write((this.terrain[x][y] + ' ').bgBlue);
+                } else if (this.treasurePosition.x === x && this.treasurePosition.y === y) {
+                    process.stdout.write((this.terrain[x][y] + ' ').bgYellow);
                 } else {
                     var hasEnemy = false;
                     for (var i = 0; i < this.enemies.length; i++) {
