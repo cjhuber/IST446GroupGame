@@ -9,6 +9,7 @@ public class Level : MonoBehaviour {
 	public GameObject player;
 	public GameObject enemy;
 	public GameObject door;
+	public GameObject doorLight;
 
 	private string rawMapData;
 	private Vector3 playerSpawn;
@@ -83,6 +84,7 @@ public class Level : MonoBehaviour {
 
 		exitPosition = new Vector3(room["map"]["exitPosition"]["y"].AsFloat, mapWidth - room["map"]["exitPosition"]["x"].AsFloat, -1);
 		Instantiate(door, exitPosition, Quaternion.identity);
+		Instantiate (doorLight, exitPosition, Quaternion.identity);
 
 		CreateMapBoundary();
 	}

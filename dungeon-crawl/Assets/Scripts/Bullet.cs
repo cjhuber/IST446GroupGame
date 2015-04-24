@@ -18,7 +18,7 @@ public class Bullet : MonoBehaviour {
 
 
 	void OnTriggerEnter2D(Collider2D other) {
-		Debug.Log (other.name);
+		//Debug.Log (other.name);
 
 		if (other.name != "Background" && other.name != "Enemy(Clone)") {
 			if (!other.name.Contains("boundary")) {
