@@ -74,16 +74,18 @@ public class Enemy : MonoBehaviour {
 
 
 	void Move() {
-		switch (state) {
-		case EnemyState.PATROL:
-			Patrol();
-			break;
-		case EnemyState.CHASE:
-			Chase();
-			break;
-		case EnemyState.AVOID:
-		default:
-			break;
+		if (player != null) {
+			switch (state) {
+			case EnemyState.PATROL:
+				Patrol();
+				break;
+			case EnemyState.CHASE:
+				Chase();
+				break;
+			case EnemyState.AVOID:
+			default:
+				break;
+			}
 		}
 	}
 	
