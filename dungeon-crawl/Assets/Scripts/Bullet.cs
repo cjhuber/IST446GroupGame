@@ -31,6 +31,9 @@ public class Bullet : MonoBehaviour {
 			}
 
 		}
+		if (other.name == "Enemy(Clone)" && this.tag == "player_bullet") {
+			Destroy (other.gameObject);
+		}
 		/*
 
 		if (other.name == "Player") {
