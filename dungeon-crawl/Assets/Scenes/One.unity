@@ -444,6 +444,14 @@ Prefab:
       propertyPath: delegates.Array.data[1].callback.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_StringArgument
       value: Jump
       objectReference: {fileID: 0}
+    - target: {fileID: 22400000, guid: 2b3c3cd7bff51de44937f1659db6daca, type: 2}
+      propertyPath: m_LocalScale.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 22400000, guid: 2b3c3cd7bff51de44937f1659db6daca, type: 2}
+      propertyPath: m_LocalScale.y
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 2b3c3cd7bff51de44937f1659db6daca, type: 2}
   m_IsPrefabParent: 0

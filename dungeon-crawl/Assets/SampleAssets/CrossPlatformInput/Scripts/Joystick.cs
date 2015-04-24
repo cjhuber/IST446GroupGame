@@ -16,16 +16,20 @@ public class Joystick : MonoBehaviour , IPointerUpHandler , IPointerDownHandler 
     public AxisOption axesToUse = AxisOption.Both;   // The options for the axes that the still will use
     public string horizontalAxisName = "Horizontal";// The name given to the horizontal axis for the cross platform input
     public string verticalAxisName = "Vertical";    // The name given to the vertical axis for the cross platform input 
-
-    private Vector3 startPos;
+	public float origW = 546;
+	public float origH = 307;
+	private Vector3 startPos;
     private bool useX;                                                          // Toggle for using the x axis
     private bool useY;                                                          // Toggle for using the Y axis
     private CrossPlatformInputManager.VirtualAxis horizontalVirtualAxis;               // Reference to the joystick in the cross platform input
     private CrossPlatformInputManager.VirtualAxis verticalVirtualAxis;                 // Reference to the joystick in the cross platform input
       
     void Start () {
-
-        startPos = transform.position;
+		
+		float scaleX = (float)(Screen.width) / origW;
+		float scaleY = (float)(Screen.height) / origH;
+		transform.localScale = new Vector3(scaleX*transform.localScale.x, scaleY*transform.localScale.y, 1);
+        startPos = new Vector3((float)Screen.width/5f,(float)Screen.height/4f,transform.position.z); //transform.position + new Vector3(scaleX, scaleY, 0);
         CreateVirtualAxes ();
     }
 
@@ -77,7 +81,7 @@ public class Joystick : MonoBehaviour , IPointerUpHandler , IPointerDownHandler 
 
     public  void OnPointerUp(PointerEventData data)
     {
-        transform.position = startPos;
+		transform.position = startPos;
         UpdateVirtualAxes (startPos);
     }
 
