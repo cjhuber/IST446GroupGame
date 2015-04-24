@@ -54,11 +54,13 @@ app.post('/rooms', function(req, res) {
     // If the room already exists, just return the room.
     if (!rooms[hashKey]) {
         rooms[hashKey] = {
+            id: hashKey,
             player1: new Player(player1),
             player2: new Player(player2),
             map: new Map()
         };
     }
+
     rooms[hashKey].map.print();
 
     res.json(rooms[hashKey]);
