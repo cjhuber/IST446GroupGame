@@ -75,7 +75,7 @@ public class MPlayer : MonoBehaviour {
 		Debug.Log (health);
 		if (health == 0) {
 			Destroy(this.gameObject);
-			PlayerPrefs.SetString ("score", score.ToString ());
+			PlayerPrefs.SetInt("score", (int)score);
 			Application.LoadLevel("Death");
 		}
 	}

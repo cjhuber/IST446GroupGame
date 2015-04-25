@@ -10,7 +10,7 @@ public class DeathMenuLoad : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
-		scoreText.text = "Score: " + PlayerPrefs.GetString("score");
+		scoreText.text = "Score: " + PlayerPrefs.GetInt("score");
 
 		StartCoroutine(UpdateRoom());
 
@@ -27,9 +27,13 @@ public class DeathMenuLoad : MonoBehaviour {
 		WWWForm form = new WWWForm();
 		form.AddField("playerid", PlayerPrefs.GetString("playerId"));
 		form.AddField("status", 1);
-		form.AddField("score", PlayerPrefs.GetString("score"));
+		form.AddField("score", PlayerPrefs.GetInt("score"));
 
-		WWW request = new WWW("http://107.170.10.115:3000/rooms/" + PlayerPrefs.GetString ("roomId"), form);
+		WWW request = new WWW("http://localhost:3000/rooms/" + PlayerPrefs.GetString("roomId"), form);
+		Debug.Log("Sending request to http://107.170.10.115:3000/rooms/" + PlayerPrefs.GetString("roomId"));
+		Debug.Log("PlayerId=" + PlayerPrefs.GetString("playerId"));
+		Debug.Log("Score=" + PlayerPrefs.GetInt("score"));
+
 		yield return request;
 
 		if (request.error == null) {

@@ -3,6 +3,7 @@ var crypto = require('crypto'),
     app = express(),
     bodyParser = require('body-parser'),
     multer = require('multer'),
+    _ = require('lodash'),
     Map = require('./map'),
     Player = require('./player');
 
@@ -84,16 +85,16 @@ app.post('/rooms/:key', function(req, res) {
     if (rooms[key]) {
         // If a player id and status is given, update player's status and score
         if (playerId && status && score) {
-            rooms[key].players[playerId].score = score;
+            rooms[key].players[playerId].score = parseInt(score);
             rooms[key].players[playerId].isFinished = true;
 
             // Check if all players in room are finished
             var allFinished = true;
-            for (var i = 0; i < rooms[key].players.length; i++) {
-                if (!rooms[key].players[i].isFinished) {
+            _.each(rooms[key].players, function(player) {
+                if (player.isFinished) {
                     allFinished = false;
                 }
-            }
+            });
 
             if (allFinished) {
                 rooms[key].isFinished = true;

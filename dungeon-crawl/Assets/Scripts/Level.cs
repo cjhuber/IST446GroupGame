@@ -40,7 +40,7 @@ public class Level : MonoBehaviour {
 		// temporarily use player_1's id as stored playerid
 		PlayerPrefs.SetString("playerId", playerid);
 
-		WWW www = new WWW("http://107.170.10.115:3000/rooms", form);
+		WWW www = new WWW("http://localhost:3000/rooms", form);
 		// Wait for request to finish
 		yield return www;
 		if (www.error == null) {
