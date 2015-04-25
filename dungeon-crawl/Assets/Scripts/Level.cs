@@ -34,10 +34,13 @@ public class Level : MonoBehaviour {
 		// Use POST request for testing
 		WWWForm form = new WWWForm();
 		// Generate random players for testing
-		form.AddField ("player_1", Mathf.Round(Random.value * 1000).ToString());
+		string playerid = Mathf.Round(Random.value * 1000).ToString();
+		form.AddField ("player_1", playerid);
 		form.AddField ("player_2", Mathf.Round(Random.value * 1000).ToString());
+		// temporarily use player_1's id as stored playerid
+		PlayerPrefs.SetString("playerId", playerid);
 
-		WWW www = new WWW("http://107.170.10.115:3000/rooms", form);
+		WWW www = new WWW("http://localhost:3000/rooms", form);
 		// Wait for request to finish
 		yield return www;
 		if (www.error == null) {
@@ -63,8 +66,9 @@ public class Level : MonoBehaviour {
 		Debug.Log ("Tile size: " + tileWidth + "x" + tileHeight);
 		
 		var roomId = room["id"].ToString().Replace ("\"", "");
-		PlayerPrefs.SetString ("roomId", roomId);
-		Debug.Log ("Room id: " + PlayerPrefs.GetString ("roomId"));
+		PlayerPrefs.SetString("roomId", roomId);
+		PlayerPrefs.Save();
+		Debug.Log("Room id: " + PlayerPrefs.GetString ("roomId"));
 
 		// Parse terrain/tiles
 		for (int x = 0; x < mapWidth; x++) {

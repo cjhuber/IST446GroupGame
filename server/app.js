@@ -59,9 +59,8 @@ app.post('/rooms', function(req, res) {
 
         rooms[hashKey] = {
             id: hashKey,
-            player1: new Player(player1),
-            player2: new Player(player2),
             players: playersH,
+            isFinished: false,
             map: new Map()
         };
     }
@@ -71,9 +70,40 @@ app.post('/rooms', function(req, res) {
     res.json(rooms[hashKey]);
 });
 
+/**
+ * Update a specific room
+ */
 app.post('/rooms/:key', function(req, res) {
-    var key = req.params.key;
-    res.json(key);
+    var key = req.params.key,
+        playerId = req.body.playerid,
+        status = req.body.status,
+        score = req.body.score;
+
+    console.log('Updating room: ' + key + ' for ' + playerId);
+
+    if (rooms[key]) {
+        // If a player id and status is given, update player's status and score
+        if (playerId && status && score) {
+            rooms[key].players[playerId].score = score;
+            rooms[key].players[playerId].isFinished = true;
+
+            // Check if all players in room are finished
+            var allFinished = true;
+            for (var i = 0; i < rooms[key].players.length; i++) {
+                if (!rooms[key].players[i].isFinished) {
+                    allFinished = false;
+                }
+            }
+
+            if (allFinished) {
+                rooms[key].isFinished = true;
+            }
+        }
+
+        res.json(rooms[key]);
+    } else {
+        res.status(500).send({ error: 'Room does not exist.' });
+    }
 });
 
 app.get('/rooms/:key', function(req, res) {

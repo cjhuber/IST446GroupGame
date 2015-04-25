@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
 using System.Collections;
+using SimpleJSON;
 
 public class DeathMenuLoad : MonoBehaviour {
 
@@ -9,11 +10,33 @@ public class DeathMenuLoad : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		scoreText = GameObject.Find("ScoreText").GetComponent<Text>();
-		scoreText.text = "Score: " + PlayerPrefs.GetString ("score");
+		scoreText.text = "Score: " + PlayerPrefs.GetString("score");
+
+		StartCoroutine(UpdateRoom());
+
 	}
 	
 	// Update is called once per frame
 	void Update () {
 	
+	}
+
+	// Make request to server to update the room with current player's finished score
+	// Need to store the player's unique id in PlayerPrefs.GetString("playerId")
+	private IEnumerator UpdateRoom() {
+		WWWForm form = new WWWForm();
+		form.AddField("playerid", PlayerPrefs.GetString("playerId"));
+		form.AddField("status", 1);
+		form.AddField("score", PlayerPrefs.GetString("score"));
+
+		WWW request = new WWW("http://localhost:3000/rooms/" + PlayerPrefs.GetString ("roomId"), form);
+		yield return request;
+
+		if (request.error == null) {
+			Debug.Log("Updated room successfuly");
+			var room = JSONNode.Parse(request.text);
+			var roomStatus = room["isFinished"].AsBool;
+			Debug.Log("Room is finished: " + roomStatus);
+		}
 	}
 }
