@@ -29,7 +29,7 @@ public class DeathMenuLoad : MonoBehaviour {
 		form.AddField("status", 1);
 		form.AddField("score", PlayerPrefs.GetString("score"));
 
-		WWW request = new WWW("http://localhost:3000/rooms/" + PlayerPrefs.GetString ("roomId"), form);
+		WWW request = new WWW("http://107.170.10.115:3000/rooms/" + PlayerPrefs.GetString ("roomId"), form);
 		yield return request;
 
 		if (request.error == null) {
