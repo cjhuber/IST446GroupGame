@@ -53,7 +53,6 @@ public class Level : MonoBehaviour {
 	private void ParseMapData() {
 		
 		Debug.Log ("Parsing map");
-
 		var tileWidth = wall.GetComponent<SpriteRenderer>().bounds.size.x;
 		var tileHeight = wall.GetComponent<SpriteRenderer>().bounds.size.y;
 		var room = JSONNode.Parse (rawMapData);
@@ -62,6 +61,10 @@ public class Level : MonoBehaviour {
 		Debug.Log ("Map Width:" + mapWidth);
 		Debug.Log ("Map Height:" + mapHeight);
 		Debug.Log ("Tile size: " + tileWidth + "x" + tileHeight);
+		
+		var roomId = room["id"].ToString().Replace ("\"", "");
+		PlayerPrefs.SetString ("roomId", roomId);
+		Debug.Log ("Room id: " + PlayerPrefs.GetString ("roomId"));
 
 		// Parse terrain/tiles
 		for (int x = 0; x < mapWidth; x++) {

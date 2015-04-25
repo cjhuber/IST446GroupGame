@@ -73,7 +73,10 @@ public class MPlayer : MonoBehaviour {
 	public void TakeDamage(){
 		health--;
 		Debug.Log (health);
-		if(health == 0)
+		if (health == 0) {
 			Destroy(this.gameObject);
+			PlayerPrefs.SetString ("score", score.ToString ());
+			Application.LoadLevel("Death");
+		}
 	}
 }
