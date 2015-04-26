@@ -20,23 +20,24 @@ public class Bullet : MonoBehaviour {
 
 	void OnTriggerEnter2D(Collider2D other) {
 		//Debug.Log (other.name);
+		if (other != null) {
+			if (other.name != "Background" && other.name != "Enemy(Clone)") {
+				if (!other.name.Contains("boundary")) {
+					//Debug.Log (this.tag + " colliding with " + other.tag);
+				}
+				Destroy(this.gameObject);
 
-		if (other.name != "Background" && other.name != "Enemy(Clone)") {
-			if (!other.name.Contains("boundary")) {
-				//Debug.Log (this.tag + " colliding with " + other.tag);
+				if(other.name =="Player(Clone)"){
+					player.TakeDamage();
+				}
+
 			}
-			Destroy(this.gameObject);
-
-			if(other.name =="Player(Clone)"){
-				player.TakeDamage();
+			if (other.name == "Enemy(Clone)" && this.tag == "player_bullet") {
+				player.score += KILLED_ENEMY;
+				Debug.Log (player.score);
+				Destroy (other.gameObject);
+				Destroy (this.gameObject);
 			}
-
-		}
-		if (other.name == "Enemy(Clone)" && this.tag == "player_bullet") {
-			player.score += KILLED_ENEMY;
-			Debug.Log (player.score);
-			Destroy (other.gameObject);
-			Destroy (this.gameObject);
 		}
 	}
 }
