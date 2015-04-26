@@ -122,7 +122,7 @@ public class MPlayer : MonoBehaviour {
     }
 
 	public void incrementScore(float amount) {
-		this.score += amount;
+		this.score += this.score + amount < 0 ? 0 : amount;
 		scoreText.GetComponent<Text>().text = "Score: " + ((int)this.score).ToString();
 	}
 }
