@@ -20,6 +20,8 @@ public class MultiplayerController : MonoBehaviour {
 	private bool firstTurn = true;
 	private bool isPlayerTwo = false;
 
+	private bool turnIsFinished = false;
+
 	// Use this for initialization
 	void Start () {
 		PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
@@ -78,6 +80,10 @@ public class MultiplayerController : MonoBehaviour {
 
 	void handleTurnBasedNotification(TurnBasedMatch t, bool b) {
 		Debug.Log ("Handle Turn Notification");
+		if(turnIsFinished) {
+			// Finish game here
+			Application.LoadLevel("Finished");
+		}
 	}
 
 	private string DecideWhoIsNext(TurnBasedMatch match) {
@@ -117,6 +123,7 @@ public class MultiplayerController : MonoBehaviour {
 		PlayGamesPlatform.Instance.TurnBased.TakeTurn(currentMatch, scoreInBytes, whoIsNext, (bool success) => {
 			if(success) {
 				Debug.Log ("Turn taken successfully");
+				turnIsFinished = true;
 			}
 		});
 
