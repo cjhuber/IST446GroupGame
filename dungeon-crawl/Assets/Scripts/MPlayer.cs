@@ -98,11 +98,14 @@ public class MPlayer : MonoBehaviour {
 		StartCoroutine(flash());
 
 		Debug.Log (health);
-		if (health == 0) {
+		if (health <= 0) {
 			var mpController = GameObject.Find ("MPController");
 			var mp = mpController.GetComponent<MultiplayerController>();
 			mp.takeTurn();
-			score = score < 0 ? 0 : score;
+			if (score <= 0)
+			{
+				score = 0;
+			}
 			incrementScore(-1*(score/2));
 			Destroy(this.gameObject);
 			PlayerPrefs.SetInt("score", (int)score);
@@ -124,5 +127,11 @@ public class MPlayer : MonoBehaviour {
 	public void incrementScore(float amount) {
 		this.score += this.score + amount < 0 ? 0 : amount;
 		scoreText.GetComponent<Text>().text = "Score: " + ((int)this.score).ToString();
+	}
+	
+	
+	public float getScore()
+	{
+		return score;
 	}
 }
