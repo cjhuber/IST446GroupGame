@@ -594,7 +594,7 @@ MonoBehaviour:
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 12
+    m_FontSize: 16
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -604,7 +604,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: 'Score: 1000'
 --- !u!222 &1709454505
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -625,8 +625,8 @@ RectTransform:
   m_RootOrder: 5
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -701, y: -57}
-  m_SizeDelta: {x: 160, y: 30}
+  m_AnchoredPosition: {x: -389.399994, y: -32}
+  m_SizeDelta: {x: 128.100006, y: 30}
   m_Pivot: {x: .5, y: .5}
 --- !u!1 &1815519307
 GameObject:
@@ -689,11 +689,11 @@ CanvasRenderer:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1815519307}
---- !u!1 &2028791383
+--- !u!1 &2028791383 stripped
 GameObject:
   m_PrefabParentObject: {fileID: 100002, guid: 2b3c3cd7bff51de44937f1659db6daca, type: 2}
   m_PrefabInternal: {fileID: 1679532915}
---- !u!224 &2028791384
+--- !u!224 &2028791384 stripped
 RectTransform:
   m_PrefabParentObject: {fileID: 22400002, guid: 2b3c3cd7bff51de44937f1659db6daca,
     type: 2}

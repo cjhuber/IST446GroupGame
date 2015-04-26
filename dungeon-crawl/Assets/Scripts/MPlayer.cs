@@ -20,7 +20,6 @@ public class MPlayer : MonoBehaviour {
 	public float INITIAL_SCORE = 1000f;
 	public float health;
 	public float score;
-	public float time_score;
 	private float BULLET_SPEED = 20.0f;
 	private float lastShot = 0.0f;
 	
@@ -86,11 +85,11 @@ public class MPlayer : MonoBehaviour {
 		}
 		
 		lastShot+=Time.deltaTime;
-		time_score += Time.deltaTime * 15;
+		incrementScore (Time.deltaTime*-25);
 	}
 
 	public void TakeDamage(){
-		health--;
+		health-=2;
 		
 		healthText.GetComponent<Text>().text = health.ToString();
 
@@ -99,8 +98,8 @@ public class MPlayer : MonoBehaviour {
 			var mpController = GameObject.Find ("MPController");
 			var mp = mpController.GetComponent<MultiplayerController>();
 			mp.takeTurn();
-			score -= time_score;
 			score = score < 0 ? 0 : score;
+			incrementScore(-1*(score/2));
 			Destroy(this.gameObject);
 			PlayerPrefs.SetInt("score", (int)score);
 			Application.LoadLevel("Death");
@@ -109,6 +108,6 @@ public class MPlayer : MonoBehaviour {
 
 	public void incrementScore(float amount) {
 		this.score += amount;
-		scoreText.GetComponent<Text>().text = this.score.ToString();
+		scoreText.GetComponent<Text>().text = "Score: " + ((int)this.score).ToString();
 	}
 }
