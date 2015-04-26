@@ -11,6 +11,7 @@ public class MPlayer : MonoBehaviour {
 	public GameObject bullet;
 	public GameObject firePosition;
 	public GameObject healthText;
+	private GameObject scoreText;
 
 	public Rigidbody2D rigidBody;
 	public float SPEED = 6f;
@@ -28,6 +29,7 @@ public class MPlayer : MonoBehaviour {
 	void Start () {
 		healthText = GameObject.FindWithTag("health_text");
 		Debug.Log (healthText);
+		scoreText = GameObject.FindWithTag("score_text");
 		mainController = GetComponent<CharacterController>();
 		this.rigidBody = this.GetComponent<Rigidbody2D>();
 		// When player is created, automatically move camera to player's position
@@ -36,6 +38,7 @@ public class MPlayer : MonoBehaviour {
 		health = TOTAL_HEALTH;
 		score = INITIAL_SCORE;
 		healthText.GetComponent<Text>().text = health.ToString();
+		scoreText.GetComponent<Text>().text = score.ToString();
 	}
 	
 	// Update is called once per frame
@@ -93,5 +96,10 @@ public class MPlayer : MonoBehaviour {
 			PlayerPrefs.SetInt("score", (int)score);
 			Application.LoadLevel("Death");
 		}
+	}
+
+	public void incrementScore(float amount) {
+		this.score += amount;
+		scoreText.GetComponent<Text>().text = this.score.ToString();
 	}
 }
