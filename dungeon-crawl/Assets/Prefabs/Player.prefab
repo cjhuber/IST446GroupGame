@@ -102,10 +102,11 @@ MonoBehaviour:
   light: {fileID: 0}
   bullet: {fileID: 113450, guid: 9c412acb5a2ee4015b83d708952576ba, type: 2}
   firePosition: {fileID: 108246}
+  healthText: {fileID: 0}
   rigidBody: {fileID: 0}
   SPEED: 6
   TOTAL_HEALTH: 100
-  INITIAL_SCORE: 0
+  INITIAL_SCORE: 1000
   health: 0
   score: 0
 --- !u!212 &21274650

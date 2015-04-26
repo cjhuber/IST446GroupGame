@@ -15,9 +15,10 @@ public class MPlayer : MonoBehaviour {
 	public Rigidbody2D rigidBody;
 	public float SPEED = 6f;
 	public float TOTAL_HEALTH = 5f;
-	public float INITIAL_SCORE = 0f;
+	public float INITIAL_SCORE = 1000f;
 	public float health;
 	public float score;
+	public float time_score;
 	private float BULLET_SPEED = 20.0f;
 	private float lastShot = 0.0f;
 	
@@ -26,6 +27,7 @@ public class MPlayer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		healthText = GameObject.FindWithTag("health_text");
+		Debug.Log (healthText);
 		mainController = GetComponent<CharacterController>();
 		this.rigidBody = this.GetComponent<Rigidbody2D>();
 		// When player is created, automatically move camera to player's position
@@ -72,6 +74,7 @@ public class MPlayer : MonoBehaviour {
 		}
 		
 		lastShot+=Time.deltaTime;
+		time_score += Time.deltaTime * 15;
 	}
 
 	public void TakeDamage(){
@@ -84,6 +87,8 @@ public class MPlayer : MonoBehaviour {
 			var mpController = GameObject.Find ("MPController");
 			var mp = mpController.GetComponent<MultiplayerController>();
 			mp.takeTurn();
+			score -= time_score;
+			score = score < 0 ? 0 : score;
 			Destroy(this.gameObject);
 			PlayerPrefs.SetInt("score", (int)score);
 			Application.LoadLevel("Death");
