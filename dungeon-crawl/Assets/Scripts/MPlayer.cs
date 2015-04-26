@@ -12,7 +12,7 @@ public class MPlayer : MonoBehaviour {
 
 	public Rigidbody2D rigidBody;
 	public float SPEED = 6f;
-	public float TOTAL_HEALTH = 100f;
+	public float TOTAL_HEALTH = 5f;
 	public float INITIAL_SCORE = 0f;
 	public float health;
 	public float score;
@@ -74,6 +74,9 @@ public class MPlayer : MonoBehaviour {
 		health--;
 		Debug.Log (health);
 		if (health == 0) {
+			var mpController = GameObject.Find ("MPController");
+			var mp = mpController.GetComponent<MultiplayerController>();
+			mp.takeTurn();
 			Destroy(this.gameObject);
 			PlayerPrefs.SetInt("score", (int)score);
 			Application.LoadLevel("Death");
