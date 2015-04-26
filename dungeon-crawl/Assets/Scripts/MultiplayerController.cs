@@ -17,6 +17,9 @@ public class MultiplayerController : MonoBehaviour {
 
 	private TurnBasedMatch currentMatch;
 
+	private bool firstTurn = true;
+	private bool isPlayerTwo = false;
+
 	// Use this for initialization
 	void Start () {
 		PlayGamesClientConfiguration config = new PlayGamesClientConfiguration.Builder()
@@ -69,6 +72,7 @@ public class MultiplayerController : MonoBehaviour {
 
 	void handleInvitation(Invitation invitation, bool shouldAutoAccept) {
 		Debug.Log ("Handle Invite");
+		isPlayerTwo = true;
 		PlayGamesPlatform.Instance.TurnBased.AcceptInvitation(invitation.InvitationId, OnMatchStarted);
 	}
 
@@ -89,6 +93,14 @@ public class MultiplayerController : MonoBehaviour {
 		return null;
 	}
 
+	private string GetOtherPlayerID(TurnBasedMatch match) {
+		foreach(Participant p in match.Participants) {
+			if(!p.ParticipantId.Equals(match.SelfParticipantId)) {
+				return p.Player.PlayerId;
+			}
+		}
+		return null;
+	}
 	public void acceptInvite() {
 		Debug.Log ("Looking Invites");
 		PlayGamesPlatform.Instance.TurnBased.AcceptFromInbox(OnMatchStarted);
@@ -115,6 +127,30 @@ public class MultiplayerController : MonoBehaviour {
 //			byte[] myData = null;
 
 			currentMatch = match;
+
+			if(isPlayerTwo) {
+				Debug.Log ("Player two setup");
+				var pOneID = GetOtherPlayerID(match);
+				var pTwoID = match.Self.Player.PlayerId;
+//				var pOneID = DecideWhoIsNext(match);
+//				var pTwoID = match.SelfParticipantId;
+				PlayerPrefs.SetString("pOneID", pOneID);
+				PlayerPrefs.SetString ("pTwoID", pTwoID);
+				
+				PlayerPrefs.SetString("playerId", pTwoID);
+			} else if(firstTurn) {
+				Debug.Log ("Player one setup");
+				firstTurn = false;
+				var pOneID = match.Self.Player.PlayerId;
+				var pTwoID = GetOtherPlayerID(match);
+//				var pOneID = match.SelfParticipantId;
+//				var pTwoID = DecideWhoIsNext(match);
+				PlayerPrefs.SetString("pOneID", pOneID);
+				PlayerPrefs.SetString("pTwoID", pTwoID);
+
+				PlayerPrefs.SetString("playerId", pOneID);
+
+			}
 
 			Debug.Log ("Successfully Invited Someone");
 //			string whoIsNext = DecideWhoIsNext(match);

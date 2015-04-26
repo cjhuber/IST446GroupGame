@@ -33,12 +33,21 @@ public class Level : MonoBehaviour {
 	private IEnumerator GetMap() {
 		// Use POST request for testing
 		WWWForm form = new WWWForm();
+
 		// Generate random players for testing
-		string playerid = Mathf.Round(Random.value * 1000).ToString();
-		form.AddField ("player_1", playerid);
-		form.AddField ("player_2", Mathf.Round(Random.value * 1000).ToString());
+//		string playerid = Mathf.Round(Random.value * 1000).ToString();
+//		form.AddField ("player_1", playerid);
+//		form.AddField ("player_2", Mathf.Round(Random.value * 1000).ToString());
+
+		// For actual game, ids are in pOneID and pTwoID PlayerPrefs;
+		string playeroneid = PlayerPrefs.GetString("pOneID");
+		string playertwoid = PlayerPrefs.GetString("pTwoID");
+
+		form.AddField("player_1", playeroneid);
+		form.AddField("player_2", playertwoid);
+
 		// temporarily use player_1's id as stored playerid
-		PlayerPrefs.SetString("playerId", playerid);
+//		PlayerPrefs.SetString("playerId", playerid);
 
 		WWW www = new WWW("http://107.170.10.115:3000/rooms", form);
 		// Wait for request to finish
