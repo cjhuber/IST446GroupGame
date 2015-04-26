@@ -83,22 +83,27 @@ app.post('/rooms/:key', function(req, res) {
     console.log('Updating room: ' + key + ' for ' + playerId);
 
     if (rooms[key]) {
-        // If a player id and status is given, update player's status and score
-        if (playerId && status && score) {
-            rooms[key].players[playerId].score = parseInt(score);
-            rooms[key].players[playerId].isFinished = true;
+        if (status > 0 ) {
+            // If a player id and status is given, update player's status and score
+            if (playerId && status && score) {
+                    rooms[key].players[playerId].score = parseInt(score);
+                    rooms[key].players[playerId].isFinished = true;
 
-            // Check if all players in room are finished
-            var allFinished = true;
-            _.each(rooms[key].players, function(player) {
-                if (player.isFinished) {
-                    allFinished = false;
+                    // Check if all players in room are finished
+                    var allFinished = true;
+                    _.each(rooms[key].players, function(player) {
+                        if (player.isFinished) {
+                            allFinished = false;
+                        }
+                    });
+
+                    if (allFinished) {
+                        rooms[key].isFinished = true;
+                    }
                 }
-            });
-
-            if (allFinished) {
-                rooms[key].isFinished = true;
-            }
+        } else {
+            delete rooms[key];
+            res.json({ 'message' : 'Room finished and deleted'  });
         }
 
         res.json(rooms[key]);
