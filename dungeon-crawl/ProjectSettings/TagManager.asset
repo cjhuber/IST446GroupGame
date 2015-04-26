@@ -3,24 +3,8 @@
 --- !u!78 &1
 TagManager:
   serializedVersion: 2
-  tags:
-  - player_2
-  - enemy_bullet
-  - player_bullet
-  - health_text
-  - score_text
+  tags: []
   layers:
-  - Default
-  - TransparentFX
-  - Ignore Raycast
-  - 
-  - Water
-  - UI
-  - 
-  - 
-  - 
-  - 
-  - Bullets
   - 
   - 
   - 
@@ -42,7 +26,15 @@ TagManager:
   - 
   - 
   - 
-  m_SortingLayers:
-  - name: Default
-    uniqueID: 0
-    locked: 0
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers: []
