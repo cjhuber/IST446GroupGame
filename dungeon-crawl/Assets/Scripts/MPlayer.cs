@@ -11,6 +11,7 @@ public class MPlayer : MonoBehaviour {
 	public GameObject bullet;
 	public GameObject firePosition;
 	public GameObject healthText;
+	public GameObject pauseText;
 
 	public Rigidbody2D rigidBody;
 	public float SPEED = 6f;
@@ -26,8 +27,9 @@ public class MPlayer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		Time.timeScale = 0;
 		healthText = GameObject.FindWithTag("health_text");
-		Debug.Log (healthText);
+		pauseText = GameObject.FindWithTag("pause_text");
 		mainController = GetComponent<CharacterController>();
 		this.rigidBody = this.GetComponent<Rigidbody2D>();
 		// When player is created, automatically move camera to player's position
@@ -45,6 +47,10 @@ public class MPlayer : MonoBehaviour {
 		Vector2 move = new Vector2(horizontal, vertical);
 		if ((horizontal != 0) && (vertical != 0))
 		{
+			if(Time.timeScale == 0){
+				Destroy (pauseText);
+				Time.timeScale = 1;
+			}
 			Vector3 rotate = new Vector3(0,0,Mathf.Atan2(-horizontal,vertical)*Mathf.Rad2Deg);
 			this.GetComponent<Rigidbody2D>().transform.localRotation = Quaternion.Euler (rotate);
 		}
@@ -56,7 +62,10 @@ public class MPlayer : MonoBehaviour {
 		this.light.transform.position = this.transform.position;
 		
 		if (CrossPlatformInputManager.GetButtonDown("Jump")){
-
+			if(Time.timeScale == 0){
+				Destroy (pauseText);
+				Time.timeScale = 1;
+			}
 			// Instantiate a new bullet and give it the same rotation as the player and starting position
 			// as the empty child firePosition game object
 			GameObject clone = Instantiate(bullet, firePosition.transform.position, Quaternion.identity) as GameObject;

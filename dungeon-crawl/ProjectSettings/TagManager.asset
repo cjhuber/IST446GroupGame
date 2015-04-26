@@ -8,6 +8,7 @@ TagManager:
   - enemy_bullet
   - player_bullet
   - health_text
+  - pause_text
   layers:
   - Default
   - TransparentFX
