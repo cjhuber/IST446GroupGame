@@ -120,7 +120,7 @@ public class Enemy : MonoBehaviour {
 		
 		// As long as enemy is 8 distance away from player,
 		// don't fire, just keep chasing. Once enemy is within range, stop chasing and fire at player.
-		if (distanceFromPlayer > 8) {
+		if (distanceFromPlayer > 5) {
 			moveDirection = new Vector2(direction.normalized.x, direction.normalized.y);
 			firing = false;
 		}
@@ -129,8 +129,9 @@ public class Enemy : MonoBehaviour {
 		}
 		
 		// If player gets more than 10 distance away from the enemy, switch to patrol state.
-		if (distanceFromPlayer > 7) {
+		if (distanceFromPlayer > 6) {
 			this.state = EnemyState.PATROL;
+			firing = false;
 		}
 		
 	}

@@ -33,7 +33,7 @@ public class Bullet : MonoBehaviour {
 
 			}
 			if (other.name == "Enemy(Clone)" && this.tag == "player_bullet") {
-				player.score += KILLED_ENEMY;
+				player.incrementScore(KILLED_ENEMY);
 				Debug.Log (player.score);
 				Destroy (other.gameObject);
 				Destroy (this.gameObject);

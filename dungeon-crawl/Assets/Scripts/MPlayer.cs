@@ -11,13 +11,15 @@ public class MPlayer : MonoBehaviour {
 	public GameObject bullet;
 	public GameObject firePosition;
 	public GameObject healthText;
+	private GameObject scoreText;
 
 	public Rigidbody2D rigidBody;
 	public float SPEED = 6f;
 	public float TOTAL_HEALTH = 5f;
-	public float INITIAL_SCORE = 0f;
+	public float INITIAL_SCORE = 1000f;
 	public float health;
 	public float score;
+	public float time_score;
 	private float BULLET_SPEED = 20.0f;
 	private float lastShot = 0.0f;
 	
@@ -26,6 +28,8 @@ public class MPlayer : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 		healthText = GameObject.FindWithTag("health_text");
+		Debug.Log (healthText);
+		scoreText = GameObject.FindWithTag("score_text");
 		mainController = GetComponent<CharacterController>();
 		this.rigidBody = this.GetComponent<Rigidbody2D>();
 		// When player is created, automatically move camera to player's position
@@ -34,6 +38,7 @@ public class MPlayer : MonoBehaviour {
 		health = TOTAL_HEALTH;
 		score = INITIAL_SCORE;
 		healthText.GetComponent<Text>().text = health.ToString();
+		scoreText.GetComponent<Text>().text = score.ToString();
 	}
 	
 	// Update is called once per frame
@@ -72,6 +77,7 @@ public class MPlayer : MonoBehaviour {
 		}
 		
 		lastShot+=Time.deltaTime;
+		time_score += Time.deltaTime * 15;
 	}
 
 	public void TakeDamage(){
@@ -84,9 +90,16 @@ public class MPlayer : MonoBehaviour {
 			var mpController = GameObject.Find ("MPController");
 			var mp = mpController.GetComponent<MultiplayerController>();
 			mp.takeTurn();
+			score -= time_score;
+			score = score < 0 ? 0 : score;
 			Destroy(this.gameObject);
 			PlayerPrefs.SetInt("score", (int)score);
 			Application.LoadLevel("Death");
 		}
+	}
+
+	public void incrementScore(float amount) {
+		this.score += amount;
+		scoreText.GetComponent<Text>().text = this.score.ToString();
 	}
 }
