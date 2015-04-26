@@ -2,6 +2,7 @@
 using System.Collections;
 using UnitySampleAssets.CrossPlatformInput;
 using UnitySampleAssets.Utility;
+using UnityEngine.UI;
 
 public class MPlayer : MonoBehaviour {
 
@@ -9,6 +10,7 @@ public class MPlayer : MonoBehaviour {
 	public GameObject light;
 	public GameObject bullet;
 	public GameObject firePosition;
+	public GameObject healthText;
 
 	public Rigidbody2D rigidBody;
 	public float SPEED = 6f;
@@ -23,6 +25,7 @@ public class MPlayer : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
+		healthText = GameObject.FindWithTag("health_text");
 		mainController = GetComponent<CharacterController>();
 		this.rigidBody = this.GetComponent<Rigidbody2D>();
 		// When player is created, automatically move camera to player's position
@@ -30,6 +33,7 @@ public class MPlayer : MonoBehaviour {
 		light = Instantiate(spotLight, new Vector3(this.transform.position.x, this.transform.position.y, -2), Quaternion.identity) as GameObject;
 		health = TOTAL_HEALTH;
 		score = INITIAL_SCORE;
+		healthText.GetComponent<Text>().text = health.ToString();
 	}
 	
 	// Update is called once per frame
@@ -72,6 +76,9 @@ public class MPlayer : MonoBehaviour {
 
 	public void TakeDamage(){
 		health--;
+		
+		healthText.GetComponent<Text>().text = health.ToString();
+
 		Debug.Log (health);
 		if (health == 0) {
 			var mpController = GameObject.Find ("MPController");
