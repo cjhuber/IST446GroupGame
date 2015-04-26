@@ -84,6 +84,8 @@ public class MPlayer : MonoBehaviour {
 			lastShot = 0;
 		}
 		
+		this.GetComponent<Renderer>().material.color = Color.white;
+
 		lastShot+=Time.deltaTime;
 		incrementScore (Time.deltaTime*-25);
 	}
@@ -92,6 +94,8 @@ public class MPlayer : MonoBehaviour {
 		health-=2;
 		
 		healthText.GetComponent<Text>().text = health.ToString();
+
+		StartCoroutine(flash());
 
 		Debug.Log (health);
 		if (health == 0) {
@@ -105,6 +109,17 @@ public class MPlayer : MonoBehaviour {
 			Application.LoadLevel("Death");
 		}
 	}
+
+	public IEnumerator flash() {
+		
+		for (int i = 0; i < 5; i++) {
+			this.GetComponent<Renderer>().material.color = Color.white;
+			yield return new WaitForSeconds(.15f);
+			
+			this.GetComponent<Renderer>().material.color = Color.red;
+			yield return new WaitForSeconds(.15f);
+		}
+    }
 
 	public void incrementScore(float amount) {
 		this.score += amount;
